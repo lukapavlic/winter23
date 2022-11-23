@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
-const pages = [{name: 'Measurements', link: '/'}, {name: 'Products', link: 'products'}];
+const pages = [{ name: 'Measurements', link: '/' }, { name: 'Products', link: 'products' }];
 const settings = [];
 
 function Navbar() {
@@ -41,22 +41,22 @@ function Navbar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            Measurements app
-                        </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Measurements app
+                    </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -87,9 +87,11 @@ function Navbar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.link} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.name}</Typography>
-                                </MenuItem>
+                                <Link to={page.link} >
+                                    <MenuItem key={page.link} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page.name}</Typography>
+                                    </MenuItem>
+                                </Link>
                             ))}
                         </Menu>
                     </Box>

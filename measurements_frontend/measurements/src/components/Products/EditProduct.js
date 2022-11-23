@@ -18,18 +18,34 @@ const style = {
     p: 4,
 };
 
-export default function AddProduct({ open, handleClose}) {
+export default function EditProduct({ open, handleClose, id}) {
     const [name, setName] = React.useState("");
     const [maxMeasure, setMaxMeasure] = React.useState("");
     const [minMeasure, setMinMeasure] = React.useState("");
 
-    const addProduct = async () => {
-        const result = await measurementsApi.post("/products", {
+    React.useEffect(() =>{
+        const fetchData = async () => {
+            const result = await measurementsApi.get(`/products/${id}`);
+            if(result.request.status === 200){
+                setName(result.data.name);
+                setMaxMeasure(result.data.maxMeasure);
+                setMinMeasure(result.data.minMeasure);
+            }
+        }
+        if(open && id){
+            fetchData();
+        }
+    }, [open]);
+    const editProduct = async () => {
+        const result = await measurementsApi.put(`/products/${id}`, {
             name: name,
             maxMeasure: maxMeasure,
             minMeasure: minMeasure
         });
         if(result.request.status === 200){
+            setName("");
+            setMaxMeasure("");
+            setMinMeasure("");
             handleClose();
         }
     }
@@ -45,8 +61,10 @@ export default function AddProduct({ open, handleClose}) {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add new product
+                        Edit product
                     </Typography>
+                    <br />
+                    <br />
                     <TextField
                         required
                         id="name"
@@ -54,6 +72,8 @@ export default function AddProduct({ open, handleClose}) {
                         value={name}
                         onChange={(event) => { setName(event.target.value) }}
                     />
+                    <br />
+                    <br />
                     <TextField
                         required
                         id="max measure"
@@ -61,6 +81,8 @@ export default function AddProduct({ open, handleClose}) {
                         value={maxMeasure}
                         onChange={(event) => { setMaxMeasure(event.target.value) }}
                     />
+                    <br />
+                    <br />
                     <TextField
                         required
                         id="min measure"
@@ -68,16 +90,10 @@ export default function AddProduct({ open, handleClose}) {
                         value={minMeasure}
                         onChange={(event) => { setMinMeasure(event.target.value) }}
                     />
+                    <br />
+                    <br />
                     <div>
-                        <Button variant="contained"
-                            onClick={() => {
-                                addProduct();
-                                setName("");
-                                setMaxMeasure("");
-                                setMinMeasure("");
-                            }}>
-                            Add
-                        </Button>
+                        <Button variant="contained" onClick={editProduct}>Save</Button>
                     </div>
                 </Box>
             </Modal>
