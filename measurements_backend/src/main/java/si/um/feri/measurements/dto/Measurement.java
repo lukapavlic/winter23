@@ -2,7 +2,6 @@ package si.um.feri.measurements.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import java.time.format.DateTimeFormatter;
 
 @JsonInclude(value = Include.NON_NULL)

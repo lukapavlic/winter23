@@ -36,7 +36,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{id}")
-	public @ResponseBody ResponseEntity<si.um.feri.measurements.dto.Product> getAllProductsById(@PathVariable("id") int id) {
+	public @ResponseBody ResponseEntity<si.um.feri.measurements.dto.Product> getProductById(@PathVariable("id") int id) {
 		//validate
 		Optional<Product> val=dao.findById(id);
 		if (val.isEmpty()) {

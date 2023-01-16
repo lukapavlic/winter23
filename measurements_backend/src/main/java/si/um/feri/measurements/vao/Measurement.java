@@ -2,7 +2,6 @@ package si.um.feri.measurements.vao;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import si.um.feri.measurements.dto.post.PostMeasurement;

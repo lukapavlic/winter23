@@ -21,7 +21,7 @@ public class ProductRepositoryTest {
     Product product;
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         measDao.deleteAll();
         dao.deleteAll();
         product=dao.save(new Product(new si.um.feri.measurements.dto.Product(
