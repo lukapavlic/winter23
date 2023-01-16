@@ -7,11 +7,12 @@ import MeasurementsTable from './MeasurementsTable';
 const Measurements = () => {
     const [measurements, setMeasurements] = useState([]);
     const [open, setOpen] = useState(false);
+    const fetchData = async () =>{
+        const result = await measurementsApi.get("/history");
+        setMeasurements(result.data);
+        console.log(result.data);
+    }
     useEffect(() => {
-        const fetchData = async () =>{
-            const result = await measurementsApi.get("/history");
-            setMeasurements(result.data);
-        }
         fetchData();
     }, []);
     const handleOpen = () => {
@@ -19,6 +20,7 @@ const Measurements = () => {
     }
     const handleClose = () => {
         setOpen(false);
+        fetchData();
     }
     return (
         <div style={{padding: '25px'}}>

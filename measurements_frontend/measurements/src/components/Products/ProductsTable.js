@@ -8,9 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
-export default function ProductsTable({products, deleteProduct}) {
+export default function ProductsTable({products, deleteProduct, editProduct}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -20,6 +21,7 @@ export default function ProductsTable({products, deleteProduct}) {
             <TableCell align="right">name</TableCell>
             <TableCell align="right">maxMeasure</TableCell>
             <TableCell align="right">minMeasure</TableCell>
+            <TableCell align="right">edit</TableCell>
             <TableCell align="right">delete</TableCell>
           </TableRow>
         </TableHead>
@@ -35,6 +37,11 @@ export default function ProductsTable({products, deleteProduct}) {
               <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.maxMeasure}</TableCell>
               <TableCell align="right">{row.minMeasure}</TableCell>
+              <TableCell align="right">
+                <IconButton onClick={() => editProduct(row.id)}>
+                  <EditIcon />
+                </IconButton>
+              </TableCell>
               <TableCell align="right">
                 <IconButton onClick={() => deleteProduct(row.id)}>
                   <DeleteIcon />
