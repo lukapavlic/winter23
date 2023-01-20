@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
-import { measurementsApi } from '../../api/api';
+import { MeasurementsApi } from '../../api/api';
 
 const style = {
     position: 'absolute',
@@ -18,18 +18,14 @@ const style = {
     p: 4,
 };
 
-export default function AddProduct({ open, handleClose}) {
+export default function AddProduct({ open, handleClose }) {
     const [name, setName] = React.useState("");
     const [maxMeasure, setMaxMeasure] = React.useState("");
     const [minMeasure, setMinMeasure] = React.useState("");
-
+    const measurementsApi = new MeasurementsApi();
     const addProduct = async () => {
-        const result = await measurementsApi.post("/products", {
-            name: name,
-            maxMeasure: maxMeasure,
-            minMeasure: minMeasure
-        });
-        if(result.request.status === 200){
+        const result = await measurementsApi.postProduct(name, maxMeasure, minMeasure);
+        if (result.request.status === 200) {
             handleClose();
         }
     }

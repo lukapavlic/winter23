@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
-import { measurementsApi } from '../../api/api';
+import { MeasurementsApi } from '../../api/api';
 
 const style = {
     position: 'absolute',
@@ -18,31 +18,28 @@ const style = {
     p: 4,
 };
 
-export default function EditProduct({ open, handleClose, id}) {
+export default function EditProduct({ open, handleClose, id }) {
     const [name, setName] = React.useState("");
     const [maxMeasure, setMaxMeasure] = React.useState("");
     const [minMeasure, setMinMeasure] = React.useState("");
+    const measurementsApi = new MeasurementsApi();
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         const fetchData = async () => {
-            const result = await measurementsApi.get(`/products/${id}`);
-            if(result.request.status === 200){
+            const result = await measurementsApi.getProductById(id);
+            if (result.request.status === 200) {
                 setName(result.data.name);
                 setMaxMeasure(result.data.maxMeasure);
                 setMinMeasure(result.data.minMeasure);
             }
         }
-        if(open && id){
+        if (open && id) {
             fetchData();
         }
-    }, [open]);
+    }, [open, id]);
     const editProduct = async () => {
-        const result = await measurementsApi.put(`/products/${id}`, {
-            name: name,
-            maxMeasure: maxMeasure,
-            minMeasure: minMeasure
-        });
-        if(result.request.status === 200){
+        const result = await measurementsApi.putProduct(id, name, maxMeasure, minMeasure);
+        if (result.request.status === 200) {
             setName("");
             setMaxMeasure("");
             setMinMeasure("");

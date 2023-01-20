@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
-import { measurementsApi } from '../../api/api';
+import { MeasurementsApi } from '../../api/api';
 
 const style = {
     position: 'absolute',
@@ -18,17 +18,16 @@ const style = {
     p: 4,
 };
 
-export default function AddMeasurement({ open, handleClose}) {
+export default function AddMeasurement({ open, handleClose }) {
     const [productId, setProductId] = React.useState("");
     const [avgTemp, setAvgTemp] = React.useState("");
-
+    const measurementsApi = new MeasurementsApi();
     const addMeasurement = async () => {
-        const result = await measurementsApi.post("/product_measurement", {
-            id: productId,
-            avgTemperature: avgTemp
-        });
-        if(result.request.status === 200){
+        const result = await measurementsApi.postMeasurement(productId, avgTemp);
+        if (result.request.status === 200) {
             handleClose();
+            setProductId("");
+            setAvgTemp("");
         }
     }
 

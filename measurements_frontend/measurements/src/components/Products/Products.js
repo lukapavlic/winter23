@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { measurementsApi } from '../../api/api';
+import { MeasurementsApi } from '../../api/api';
 import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
 import ProductsTable from './ProductsTable';
@@ -10,10 +10,13 @@ const Products = () => {
     const [open, setOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [editId, setEditId] = useState("");
+    const [loaded, setLoaded] = useState(false);
+    const measurementsApi = new MeasurementsApi();
 
-    const fetchData = async () =>{
-        const result = await measurementsApi.get("/products");
-        setProducts(result.data);
+    const fetchData = () => {
+        measurementsApi.getProducts()
+            .then((result) => { setProducts(result.data); setLoaded(true); })
+            .catch((response) => console.log(`error ${response}`));
     }
     useEffect(() => {
         fetchData();
@@ -29,7 +32,7 @@ const Products = () => {
         fetchData();
     }
     const deleteProduct = async (id) => {
-        const result = await measurementsApi.delete(`/products/${id}`);
+        await measurementsApi.deleteProduct(id);
         fetchData();
     }
     const editProduct = (id) => {
@@ -37,12 +40,12 @@ const Products = () => {
         setEditOpen(true);
     }
     return (
-        <div style={{padding: '25px'}}>
+        <div style={{ padding: '25px' }}>
             <h2>Products</h2>
             <Button variant="contained" onClick={handleOpen}>New Product</Button>
             <br />
             <br />
-            <ProductsTable products={products} deleteProduct={deleteProduct} editProduct={editProduct}/>
+            {loaded ? <ProductsTable products={products} deleteProduct={deleteProduct} editProduct={editProduct} /> : <CircularProgress />}
             <AddProduct open={open} handleClose={handleClose} />
             <EditProduct open={editOpen} handleClose={handleClose} id={editId} />
         </div>

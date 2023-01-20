@@ -9,11 +9,7 @@ import Paper from '@mui/material/Paper';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-export default function MeasurementsTable({measurements}) {
+export default function MeasurementsTable({ measurements }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
@@ -37,7 +33,7 @@ export default function MeasurementsTable({measurements}) {
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
               <TableCell align="right">{row.productId}</TableCell>
-              <TableCell align="right">{row.isOk ? <DoneIcon sx={{color: 'green'}}/> : <CloseIcon sx={{color: 'red'}}/>}</TableCell>
+              <TableCell align="right">{row.isOk ? <DoneIcon sx={{ color: 'green' }} /> : <CloseIcon sx={{ color: 'red' }} />}</TableCell>
               <TableCell align="right">{row.avgTemperature}</TableCell>
             </TableRow>
           ))}
