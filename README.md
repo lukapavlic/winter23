@@ -29,7 +29,7 @@ For details check _measurements_backend_ folder.
 - npm install & npm run *or*
 - `docker run -d -p 3000:80 <image_name>`
 
-For details check _measurements_frontend_ folder.
+For details check _measurements_frontend/measurements_ folder.
 
 
 ## Running CLI
