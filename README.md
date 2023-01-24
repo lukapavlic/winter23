@@ -23,6 +23,10 @@ A demo on winter school 2023@UM/FERI:
 
 Then check: http://127.0.0.1:8280/api/v1/swagger-ui.html
 
+
+Unzip'n'run platform: https://github.com/lukapavlic/platforms/tree/master/winter_school_2023
+
+
 For details check _measurements_backend_ folder.
 
 ## Running Frontend
